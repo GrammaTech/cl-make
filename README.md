@@ -49,3 +49,57 @@ include cl.mk
 doc:
 	make -C doc
 ```
+
+To include this into a git repository try the following, taken from
+the
+[Subtree Merging](https://git-scm.com/book/en/v1/Git-Tools-Subtree-Merging)
+instructions in the git book.  Here's an abbreviated example.
+
+    $ git init .
+    Initialized empty Git repository in /tmp/example-cl/.git/
+
+    $ git add .
+
+    $ echo "a test CL repo" > README.md
+
+    $ git commit -m "initial commit"
+    [master (root-commit) 5eafa2d] initial commit
+     1 file changed, 1 insertion(+)
+     create mode 100644 README.md
+
+    $ git remote add cl-make git@git:synthesis/cl-make.git
+
+    $ git fetch cl-make
+    warning: no common commits
+    remote: Counting objects: 4, done.
+    remote: Compressing objects: 100% (4/4), done.
+    remote: Total 4 (delta 0), reused 0 (delta 0)
+    Unpacking objects: 100% (4/4), done.
+    From git:synthesis/cl-make
+     * [new branch]      master     -> cl-make/master
+
+    $ git checkout -b cl-make cl-make/master
+    Branch cl-make set up to track remote branch master from cl-make.
+    Switched to a new branch 'cl-make'
+
+    $ git checkout master
+    Switched to branch 'master'
+
+    $ git read-tree --prefix=.cl-make/ -u cl-make
+
+    $ git status
+    On branch master
+    Changes to be committed:
+      (use "git reset HEAD <file>..." to unstage)
+
+            new file:   .cl-make/README.md
+            new file:   .cl-make/cl.mk
+
+    14:49 mistletoe:example-cl git commit -m "brought in cl-make to .cl-make"
+    [master 47ceba0] brought in cl-make to .cl-make
+     2 files changed, 192 insertions(+)
+     create mode 100644 .cl-make/README.md
+     create mode 100644 .cl-make/cl.mk
+
+Merging in later changes should be easy and is described in
+[Subtree Merging](https://git-scm.com/book/en/v1/Git-Tools-Subtree-Merging).
