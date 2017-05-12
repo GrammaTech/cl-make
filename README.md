@@ -95,11 +95,48 @@ instructions in the git book.  Here's an abbreviated example.
             new file:   .cl-make/README.md
             new file:   .cl-make/cl.mk
 
-    14:49 mistletoe:example-cl git commit -m "brought in cl-make to .cl-make"
+    $ git commit -m "brought in cl-make to .cl-make"
     [master 47ceba0] brought in cl-make to .cl-make
      2 files changed, 192 insertions(+)
      create mode 100644 .cl-make/README.md
      create mode 100644 .cl-make/cl.mk
 
-Merging in later changes should be easy and is described in
-[Subtree Merging](https://git-scm.com/book/en/v1/Git-Tools-Subtree-Merging).
+Merging in later changes works but wasn't (in my case) quite as easy
+and is described in
+[Subtree Merging](https://git-scm.com/book/en/v1/Git-Tools-Subtree-Merging)
+because I had to add the `--allow-unrelated-histories` option to the
+`git merge` command and then manually fix a trivial merge conflict.
+
+    $ git checkout cl-make
+    Switched to branch 'cl-make'
+    Your branch is up-to-date with 'cl-make/master'.
+
+    $ git pull
+    remote: Counting objects: 3, done.
+    remote: Compressing objects: 100% (3/3), done.
+    remote: Total 3 (delta 0), reused 0 (delta 0)
+    Unpacking objects: 100% (3/3), done.
+    From git:synthesis/cl-make
+       28371b9..15878ce  master     -> cl-make/master
+    Updating 28371b9..15878ce
+    Fast-forward
+     README.md | 54 ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+     1 file changed, 54 insertions(+)
+
+    $ git checkout master
+    Switched to branch 'master'
+
+    $ git merge --squash -s subtree --no-commit cl-make
+    fatal: refusing to merge unrelated histories
+
+    $ git merge --squash -s subtree --no-commit --allow-unrelated-histories cl-make
+    Auto-merging .cl-make/README.md
+    CONFLICT (add/add): Merge conflict in .cl-make/README.md
+    Squash commit -- not updating HEAD
+    Automatic merge failed; fix conflicts and then commit the result.
+
+    # Manually do trivial merge conflict resolution.
+
+    $ git commit -m "updated from remote (with some merge resolutions)"
+    [master 6ee2b7b] updated from remote (with some merge resolutions)
+     1 file changed, 54 insertions(+)
