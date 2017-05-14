@@ -13,6 +13,10 @@
 
 .PHONY: check-testbot check clean more-clean real-clean
 
+# Set default values of PACKAGE_NICKNAME/PACKAGE_NAME_FIRST
+PACKAGE_NICKNAME ?= $(PACKAGE_NAME)
+PICKAGE_NAME_FIRST ?= $(PACKAGE_NAME)
+
 # Use buildapp as the lisp compiler.
 LC ?= buildapp
 
@@ -79,7 +83,7 @@ quicklisp/local-projects/%.loaded: | system-index.txt
 	touch $@
 
 bin/%: $(LISP_DEPS) $(LOADED_LIBS) system-index.txt
-	CC=$(CC) $(LISP_HOME) LISP=$(LISP) $(LC) $(LCFLAGS) $(LC_LIBS) --output $@ --entry "$(PACKAGE_HICKNAME):$@"
+	CC=$(CC) $(LISP_HOME) LISP=$(LISP) $(LC) $(LCFLAGS) $(LC_LIBS) --output $@ --entry "$(PACKAGE_NICKNAME):$*"
 
 
 # Test executable
@@ -127,7 +131,7 @@ swank-test: quicklisp/setup.lisp $(TEST_ARTIFACTS)
 	--eval '(swank:create-server :port $(SWANK_PORT) :style :spawn :dont-close t)'
 
 clean:
-	rm -f bin/$(PACKAGE_NICKNAME)-test bin/$(PACKAGE_NICKNAME)-testbot bin/clang-instrument
+	rm -f bin/$(PACKAGE_NICKNAME)-test bin/$(PACKAGE_NICKNAME)-testbot $(addprefix bin/, $(BINS))
 	rm -f $(TEST_ARTIFACTS)
 
 more-clean: clean
