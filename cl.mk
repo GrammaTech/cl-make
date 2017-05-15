@@ -87,6 +87,9 @@ bin/%: $(LISP_DEPS) $(LOADED_LIBS) system-index.txt
 
 
 # Test executable
+BINS += bin/$(PACKAGE_NICKNAME)-test
+BINS += bin/$(PACKAGE_NICKNAME)-testbot
+
 TEST_LISP_DEPS ?= $(wildcard test/src/*.lisp)
 TEST_LISP_LIBS += $(PACKAGE_NAME)-test
 TEST_LC_LIBS:=$(addprefix --load-system , $(TEST_LISP_LIBS))
