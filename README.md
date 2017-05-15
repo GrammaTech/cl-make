@@ -41,7 +41,7 @@ TEST_ARTIFACTS = \
 	test/etc/gcd/gcd \
 	test/etc/gcd/gcd.s
 
-BINS = bin/example-se-executable
+BINS = example-se-executable
 
 include cl.mk
 

@@ -87,8 +87,8 @@ bin/%: $(LISP_DEPS) $(LOADED_LIBS) system-index.txt
 
 
 # Test executable
-BINS += bin/$(PACKAGE_NICKNAME)-test
-BINS += bin/$(PACKAGE_NICKNAME)-testbot
+BINS += $(PACKAGE_NICKNAME)-test
+BINS += $(PACKAGE_NICKNAME)-testbot
 
 TEST_LISP_DEPS ?= $(wildcard test/src/*.lisp)
 TEST_LISP_LIBS += $(PACKAGE_NAME)-test
@@ -120,7 +120,7 @@ swank: quicklisp/setup.lisp
 	--eval '(pushnew (truename ".") ql:*local-project-directories*)' \
 	--eval '(ql:quickload :swank)'				\
 	--eval '(ql:quickload :$(PACKAGE_NAME))'		\
-	--eval '(in-package :$(PACKAGE_NAME))'		\
+	--eval '(in-package :$(PACKAGE_NAME))'			\
 	--eval '(swank:create-server :port $(SWANK_PORT) :style :spawn :dont-close t)'
 
 swank-test: quicklisp/setup.lisp $(TEST_ARTIFACTS)
@@ -129,7 +129,7 @@ swank-test: quicklisp/setup.lisp $(TEST_ARTIFACTS)
 	--eval '(pushnew (truename ".") ql:*local-project-directories*)' \
 	--eval '(ql:quickload :swank)'				\
 	--eval '(ql:quickload :$(PACKAGE_NAME))'		\
-	--eval '(ql:quickload :$(PACKAGE_NAME)-test)'	\
+	--eval '(ql:quickload :$(PACKAGE_NAME)-test)'		\
 	--eval '(in-package :$(PACKAGE_NAME)-test)'		\
 	--eval '(swank:create-server :port $(SWANK_PORT) :style :spawn :dont-close t)'
 
