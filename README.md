@@ -17,6 +17,7 @@ and then include cl.mk.
 | `TEST_ARTIFACTS`     | Name of dependencies for testing          |               |
 | `LISP_DEPS`          | Packages require to build CL package      |               |
 | `TEST_LISP_DEPS`     | Packages require to build CL test package |               |
+| `HARD_QUIT`          | Compile bins to exit on error             |               |
 
 An example usage would be the following Makefile.
 
@@ -40,6 +41,8 @@ LISP_DEPS =				\
 TEST_ARTIFACTS = \
 	test/etc/gcd/gcd \
 	test/etc/gcd/gcd.s
+
+HARD_QUIT = yes
 
 BINS = example-se-executable
 
