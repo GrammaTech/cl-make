@@ -15,8 +15,8 @@ and then include cl.mk.
 | `PACKAGE_NAME_FIRST` | The first package name to require         | PACKAGE_NAME  |
 | `BINS`               | Names of binaries to build with buildapp  |               |
 | `TEST_ARTIFACTS`     | Name of dependencies for testing          |               |
-| `LISP_DEPS`          | Packages require to build CL package      |               |
-| `TEST_LISP_DEPS`     | Packages require to build CL test package |               |
+| `LISP_DEPS`          | Files required to build CL package        |               |
+| `TEST_LISP_DEPS`     | Files required to build CL test package   |               |
 | `HARD_QUIT`          | Compile bins to exit on error             |               |
 
 An example usage would be the following Makefile.
@@ -59,6 +59,21 @@ test/etc/gcd/gcd.s: test/etc/gcd/gcd.c
 doc:
 	make -C doc
 ```
+
+### Building binaries
+For each name in the `BINS` variable, a binary will be built with that 
+name, which calls `$PACKAGE_NICKNAME:$NAME` as its main entry function.
+
+### Running tests
+Your project should include a package named `$PACKAGE_NICKNAME-test`, 
+which includes the functions `run-batch` (to run tests and print results
+to the console) and `run-testbot` (to run tests and submit results to
+datamanager). 
+
+The make targets `$PACKAGE_NICKNAME-test`, `$PACKAGE_NICKNAME-testbot`, 
+`check`, and `check-testbot` are defined automatically. The first two are 
+the test executables, and the last two will run the corresponding 
+executable as well as building it.
 
 ## Repository Configuration
 
