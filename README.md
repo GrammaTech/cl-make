@@ -8,16 +8,16 @@
 To use this file first define the following variables in your makefile
 and then include cl.mk.
 
-| Variable Name        | Description                               | Default value |
-|----------------------+-------------------------------------------+---------------|
-| `PACKAGE_NAME`       | The full name of the CL package           |               |
-| `PACKAGE_NICKNAME`   | The nickname of the CL package            | PACKAGE_NAME  |
-| `PACKAGE_NAME_FIRST` | The first package name to require         | PACKAGE_NAME  |
-| `BINS`               | Names of binaries to build with buildapp  |               |
-| `TEST_ARTIFACTS`     | Name of dependencies for testing          |               |
-| `LISP_DEPS`          | Files required to build CL package        |               |
-| `TEST_LISP_DEPS`     | Files required to build CL test package   |               |
-| `HARD_QUIT`          | Compile bins to exit on error             |               |
+| Variable Name        | Description                              | Default value |
+|----------------------|------------------------------------------|---------------|
+| `PACKAGE_NAME`       | The full name of the CL package          |               |
+| `PACKAGE_NICKNAME`   | The nickname of the CL package           | PACKAGE_NAME  |
+| `PACKAGE_NAME_FIRST` | The first package name to require        | PACKAGE_NAME  |
+| `BINS`               | Names of binaries to build with buildapp |               |
+| `TEST_ARTIFACTS`     | Name of dependencies for testing         |               |
+| `LISP_DEPS`          | Files required to build CL package       |               |
+| `TEST_LISP_DEPS`     | Files required to build CL test package  |               |
+| `HARD_QUIT`          | Compile bins to exit on error            |               |
 
 An example usage would be the following Makefile.
 
@@ -26,7 +26,7 @@ An example usage would be the following Makefile.
 
 # Set personal or machine-local flags in a file named local.mk
 ifneq ("$(wildcard local.mk)","")
-include local.mk
+include .cl-make/local.mk
 endif
 
 PACKAGE_NAME = software-evolution
@@ -77,35 +77,11 @@ executable as well as building it.
 
 ## Repository Configuration
 
-To include this into a git repository try the following, markedly
-simplified from the
-[Subtree Merging](https://git-scm.com/book/en/v1/Git-Tools-Subtree-Merging)
-instructions in the git book.
+It is probably best to include this project as a git submodule into
+your existing Common Lisp project git repository.  The example
+Makefile above assumes that you have cloned this into the `.cl-make/`
+sub-directory of your project, e.g. with the following:
 
-The first time, you will create a local `cl-make` branch pointing to
-the `wo-readme` branch of the cl-make git repository.
-
-    $ git remote add cl-make git@git:synthesis/cl-make.git
-
-    $ git fetch cl-make
-
-    $ git checkout -b cl-make cl-make/wo-readme
-
-    $ git checkout master
-
-Then you'll merge this branch into your master branch bringing the
-`cl.mk` file into your repository.
-
-    $ git merge cl-make --allow-unrelated-histories
-
-On subsequent updates you can `git pull` from the remote cl-make
-repository into your `cl-make` branch, and then merge those changes
-into your master branch.  The `--allow-unrelated-histories` flag
-should not be required for subsequent merges.
-
-## Splitting out `wo-readme` branch
-
-Was done with the following.
-
-    git checkout -b wo-readme master
-    git filter-branch -f --prune-empty --index-filter 'git rm -f -q README.md;fi' -- wo-readme
+```shell
+git submodule add https://github.com/grammatech/cl-make.git .cl-make
+```
