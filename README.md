@@ -8,16 +8,21 @@
 To use this file first define the following variables in your makefile
 and then include cl.mk.
 
-| Variable Name        | Description                              | Default value |
-|----------------------|------------------------------------------|---------------|
-| `PACKAGE_NAME`       | The full name of the CL package          |               |
-| `PACKAGE_NICKNAME`   | The nickname of the CL package           | PACKAGE_NAME  |
-| `PACKAGE_NAME_FIRST` | The first package name to require        | PACKAGE_NAME  |
-| `BINS`               | Names of binaries to build with buildapp |               |
-| `TEST_ARTIFACTS`     | Name of dependencies for testing         |               |
-| `LISP_DEPS`          | Files required to build CL package       |               |
-| `TEST_LISP_DEPS`     | Files required to build CL test package  |               |
-| `HARD_QUIT`          | Compile bins to exit on error            |               |
+| Variable Name        | Description                                       | Default value |
+|----------------------|---------------------------------------------------|---------------|
+| `PACKAGE_NAME`       | The full name of the CL package                   |               |
+| `PACKAGE_NICKNAME`   | The nickname of the CL package                    | PACKAGE_NAME  |
+| `DOC_PACKAGES`       | Names of the packages to document                 | PACKAGE_NAME  |
+| `DOC_DEPS`           | Optional additional Makefile doc targets          |               |
+| `BINS`               | Names of binaries to build with buildapp          |               |
+| `TEST_ARTIFACTS`     | Name of dependencies for testing                  |               |
+| `TEST_BINS`          | Names of lisp binaries needed for testing         |               |
+| `TEST_BIN_DIR`       | Directory of the lisp binaries needed for testing |               |
+| `LISP_DEPS`          | Files required to build CL package                |               |
+| `TEST_LISP_DEPS`     | Files required to build CL test package           |               |
+| `BIN_TEST_DIR`       | Directory holding command line tests              |               |
+| `BIN_TESTS`          | List of command line tests                        |               |
+| `LONG_BIN_TESTS`     | List of longer running command line tests         |               |
 
 An example usage would be the following Makefile.
 
@@ -31,7 +36,6 @@ endif
 
 PACKAGE_NAME = software-evolution
 PACKAGE_NICKNAME = se
-PACKAGE_NAME_FIRST = software-evolution-utility
 LISP_DEPS =				\
 	$(wildcard *.lisp) 		\
 	$(wildcard src/*.lisp)		\
@@ -41,8 +45,6 @@ LISP_DEPS =				\
 TEST_ARTIFACTS = \
 	test/etc/gcd/gcd \
 	test/etc/gcd/gcd.s
-
-HARD_QUIT = yes
 
 BINS = example-se-executable
 
