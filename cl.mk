@@ -260,7 +260,6 @@ clean:
 doc-clean:
 	rm -f doc/*.info;
 	rm -rf doc/$(PACKAGE_NAME)/
-	find doc/ -type f -name "*.html" -exec rm {} \+
 	rm -f doc/include/*
 
 more-clean: clean doc-clean
