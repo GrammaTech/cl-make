@@ -1,3 +1,4 @@
 [submodule "sb-texinfo"]
 	path = sb-texinfo
 	url = https://github.com/GrammaTech/sb-texinfo.git
+	branch = master
