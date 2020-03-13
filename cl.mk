@@ -260,6 +260,7 @@ clean:
 doc-clean:
 	rm -f doc/*.info;
 	rm -rf doc/$(PACKAGE_NAME)/
+	rm -f doc/*-api.texi
 	rm -f doc/include/*
 
 more-clean: clean doc-clean
