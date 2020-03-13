@@ -257,11 +257,16 @@ clean:
 	rm -f $(TEST_ARTIFACTS)
 	rm -f $(addprefix test/bin/, $(TEST_BINS))
 
-more-clean: clean
+doc-clean:
+	rm -f doc/*.info;
+	rm -rf doc/$(PACKAGE_NAME)/
+	find doc/ -type f -name "*.html" -exec rm {} \+
+	rm -f doc/include/*
+
+more-clean: clean doc-clean
 	find . -type f -name "*.fasl" -exec rm {} \+
 	find . -type f -name "*.lx32fsl" -exec rm {} \+
 	find . -type f -name "*.lx64fsl" -exec rm {} \+
-	make -C doc clean
 
 real-clean: more-clean
 	rm -f .qlfile Dockerfile
