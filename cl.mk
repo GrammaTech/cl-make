@@ -277,7 +277,6 @@ real-clean: more-clean
 DOC_DEPS ?=
 
 doc: api html $(DOC_DEPS)
-	make -C doc
 
 api: doc/include/sb-texinfo.texinfo
 
@@ -289,7 +288,7 @@ doc/include/sb-texinfo.texinfo: $(LISP_DEPS) $(wildcard software/*.lisp)
 	SBCL_HOME=$(dir $(shell which sbcl))../lib/sbcl sbcl --load $(QUICK_LISP)/setup.lisp \
 	--eval '(ql:quickload :gt/full)' \
 	--eval '(progn (list $(LOADS) $(cparen))' \
-	--script .ci/.generate-api-docs packages $(DOC_PACKAGES)
+	--script .cl-make/generate-api-docs packages $(DOC_PACKAGES)
 
 html: doc/$(PACKAGE_NAME).texi
 	makeinfo --html $< -o doc/$(PACKAGE_NAME)/
