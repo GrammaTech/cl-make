@@ -19,7 +19,7 @@
 #                      Used by the `real-check' target.
 SHELL=bash
 
-.PHONY: test-artifacts check unit-check real-check clean more-clean real-clean Dockerfile doc api html
+.PHONY: test-artifacts check unit-check real-check clean more-clean real-clean Dockerfile doc api info html
 
 .SECONDARY:
 
@@ -289,6 +289,11 @@ doc/include/sb-texinfo.texinfo: $(LISP_DEPS)
 	--eval '(ql:quickload :gt/full)' \
 	--eval '(progn (list $(LOADS) $(cparen))' \
 	--script .cl-make/generate-api-docs packages $(DOC_PACKAGES)
+
+info: doc/$(PACKAGE_NAME).info
+
+doc/$(PACKAGE_NAME).info: doc/$(PACKAGE_NAME).texi
+	makeinfo $< -o doc/$(PACKAGE_NAME).info
 
 html: doc/$(PACKAGE_NAME).texi
 	makeinfo --html $< -o doc/$(PACKAGE_NAME)/
