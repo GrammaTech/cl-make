@@ -65,15 +65,15 @@
      ;; Re-run to update the doc/foo-api.texi files with new links to
      ;; newly documented classes, functions, methods, types, structures,
      ;; and macros.
-     (uiop/os:chdir "doc/")
-     (mapc (lambda (package path title)
-             (document-package package
-                               :output-file path
-                               :standalone nil
-                               :title title))
-           packages
-           (mapcar #'doc-file packages)
-           (mapcar #'doc-title packages))
+     (uiop/filesystem:with-current-directory ("doc/")
+       (mapc (lambda (package path title)
+               (document-package package
+                                 :output-file path
+                                 :standalone nil
+                                 :title title))
+             packages
+             (mapcar #'doc-file packages)
+             (mapcar #'doc-title packages)))
      (format t "~&Generated full package docs for ~{~a~^, ~}.~%" packages))
     (otherwise
      (format t "~&Unknown action \"~S\"~%" action)
