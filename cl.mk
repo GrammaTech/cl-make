@@ -19,7 +19,7 @@
 #                      Used by the `real-check' target.
 SHELL=bash
 
-.PHONY: test-artifacts check unit-check real-check clean more-clean real-clean Dockerfile
+.PHONY: test-artifacts check unit-check real-check clean more-clean real-clean Dockerfile doc api
 
 .SECONDARY:
 
