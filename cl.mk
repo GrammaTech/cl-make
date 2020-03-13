@@ -141,7 +141,6 @@ unit-check: test-artifacts $(TEST_LISP_DEPS) $(LISP_DEPS) $(MANIFEST)
 	CC=$(CC) $(LISP_HOME) LISP=$(LISP) $(LISP) $(LISP_FLAGS) \
 	--load $(QUICK_LISP)/setup.lisp \
 	--eval '(ql:quickload :$(PACKAGE_NAME)/test)' \
-	--eval '(setq sel/stefil+:*long-tests* t)' \
 	--eval '($(PACKAGE_NAME)/test::run-batch)' \
 	--eval '(uiop:quit (if $(PACKAGE_NAME)/test::*success* 0 1))'
 
@@ -150,7 +149,6 @@ unit-check/%: test-artifacts $(TEST_LISP_DEPS) $(LISP_DEPS) $(MANIFEST)
 	--load $(QUICK_LISP)/setup.lisp \
 	--eval '(ql:quickload :gt/misc :silent t)' \
 	--eval '(ql:quickload :$(PACKAGE_NAME)/test :silent t)' \
-	--eval '(setq sel/stefil+:*long-tests* t)' \
 	--eval '(setf uiop/image::*lisp-interaction* nil)' \
 	--eval '(setf gt/misc:*uninteresting-conditions* (list (quote stefil::test-style-warning)))' \
 	--eval '(gt/misc:with-quiet-compilation (handler-bind ((t (lambda (e) (declare (ignorable e)) (format t "FAIL~%") (uiop::quit 1)))) (progn ($(PACKAGE_NAME)/test::$*) (format t "PASS~%") (uiop:quit 0))))'
