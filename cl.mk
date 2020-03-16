@@ -275,7 +275,7 @@ real-clean: more-clean
 ## Documentation
 DOC_DEPS ?=
 
-doc: | api $(DOC_DEPS) info html
+doc: info html
 
 api: doc/include/sb-texinfo.texinfo
 
@@ -291,10 +291,10 @@ doc/include/sb-texinfo.texinfo: $(LISP_DEPS)
 
 info: doc/$(PACKAGE_NAME).info
 
-doc/$(PACKAGE_NAME).info: doc/$(PACKAGE_NAME).texi
+doc/$(PACKAGE_NAME).info: doc/include/sb-texinfo.texinfo $(DOC_DEPS) doc/$(PACKAGE_NAME).texi
 	makeinfo $< -o doc/$(PACKAGE_NAME).info
 
-html: doc/$(PACKAGE_NAME).texi
+html: doc/include/sb-texinfo.texinfo $(DOC_DEPS) doc/$(PACKAGE_NAME).texi
 	makeinfo --html $< -o doc/$(PACKAGE_NAME)/
 
 gh-pages: doc
