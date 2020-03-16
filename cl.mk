@@ -275,7 +275,7 @@ real-clean: more-clean
 ## Documentation
 DOC_DEPS ?=
 
-doc: api info html $(DOC_DEPS)
+doc: | api $(DOC_DEPS) info html
 
 api: doc/include/sb-texinfo.texinfo
 
