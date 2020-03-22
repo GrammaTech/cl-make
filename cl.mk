@@ -291,10 +291,10 @@ doc/include/sb-texinfo.texinfo: $(LISP_DEPS)
 
 info: doc/$(PACKAGE_NAME).info
 
-doc/$(PACKAGE_NAME).info: doc/include/sb-texinfo.texinfo $(DOC_DEPS) doc/$(PACKAGE_NAME).texi
+doc/$(PACKAGE_NAME).info: doc/$(PACKAGE_NAME).texi doc/include/sb-texinfo.texinfo $(DOC_DEPS)
 	makeinfo $< -o doc/$(PACKAGE_NAME).info
 
-html: doc/include/sb-texinfo.texinfo $(DOC_DEPS) doc/$(PACKAGE_NAME).texi
+html: doc/$(PACKAGE_NAME).texi doc/include/sb-texinfo.texinfo $(DOC_DEPS)
 	makeinfo --html $< -o doc/$(PACKAGE_NAME)/
 
 gh-pages: doc
