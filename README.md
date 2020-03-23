@@ -23,6 +23,8 @@ and then include cl.mk.
 | `BIN_TEST_DIR`       | Directory holding command line tests              |               |
 | `BIN_TESTS`          | List of command line tests                        |               |
 | `LONG_BIN_TESTS`     | List of longer running command line tests         |               |
+| `LISP_HEAP`          | Size of the LISP heap (Mb)                        |               |
+| `LISP_STACK`         | Size of the LISP stack (Mb)                       |               |
 
 An example usage would be the following Makefile.
 

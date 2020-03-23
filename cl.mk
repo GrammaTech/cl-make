@@ -17,6 +17,8 @@
 # BIN_TESTS ---------- List of command line tests
 # LONG_BIN_TESTS ----- List of longer running command line tests
 #                      Used by the `real-check' target.
+# LISP_HEAP ---------- Size of the LISP heap (Mb)
+# LISP_STACK --------- Size of the LISP stack (Mb)
 SHELL=bash
 
 .PHONY: test-artifacts check unit-check real-check clean more-clean real-clean \
@@ -54,26 +56,33 @@ endif
 endif
 REPL_STARTUP ?= ()
 
+ifneq ($(LISP_HEAP),)
+ifneq (,$(findstring sbcl, $(LISP)))
+LISP_FLAGS += --dynamic-space-size $(LISP_HEAP)
+else
+ifneq (,$(findstring ccl, $(LISP)))
+LISP_FLAGS += --heap-reserve $(LISP_HEAP)M
+endif
+endif
+endif
+
 ifneq ($(LISP_STACK),)
 ifneq (,$(findstring sbcl, $(LISP)))
-LISP_FLAGS = --noinform --dynamic-space-size $(LISP_STACK) --no-userinit --no-sysinit
+LISP_FLAGS += --control-stack-size $(LISP_STACK)
 else
-ifneq (,$(findstring ecl, $(LISP)))
-# TODO: Figure out how to set --heap-size appropriately.
-LISP_FLAGS = --norc
-else
-LISP_FLAGS = --stack-size $(LISP_STACK) --quiet --no-init --batch
+ifneq (,$(findstring ccl, $(LISP)))
+LISP_FLAGS += --stack-size $(LISP_STACK)M
 endif
 endif
-else
+endif
+
 ifneq (,$(findstring sbcl, $(LISP)))
-LISP_FLAGS = --no-userinit --no-sysinit
+LISP_FLAGS += --noinform --no-userinit --no-sysinit
 else
 ifneq (,$(findstring ecl, $(LISP)))
-LISP_FLAGS = --norc
+LISP_FLAGS += --norc
 else
-LISP_FLAGS = --quiet --no-init --batch
-endif
+LISP_FLAGS += --quiet --no-init --batch
 endif
 endif
 
