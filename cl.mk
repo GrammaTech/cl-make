@@ -257,10 +257,7 @@ clean:
 	rm -f $(addprefix test/bin/, $(TEST_BINS))
 
 doc-clean:
-	rm -f doc/*.info;
-	rm -rf doc/$(PACKAGE_NAME)/
-	rm -f doc/*-api.texi
-	rm -rf doc/include/
+	git clean -fx doc/
 
 more-clean: clean doc-clean
 	find . -type f -name "*.fasl" -exec rm {} \+
