@@ -77,7 +77,7 @@ endif
 endif
 
 ifneq (,$(findstring sbcl, $(LISP)))
-LISP_FLAGS += --noinform --no-userinit --no-sysinit
+LISP_FLAGS += --noinform --no-userinit --no-sysinit --disable-debugger
 else
 ifneq (,$(findstring ecl, $(LISP)))
 LISP_FLAGS += --norc
