@@ -119,6 +119,7 @@ bin/%: $(LISP_DEPS) $(MANIFEST)
 	@rm -f $@
 	CC=$(CC) $(LISP_HOME) LISP=$(LISP) $(LISP) $(LISP_FLAGS) \
 	--load $(QUICK_LISP)/setup.lisp \
+	--eval '(ql:quickload :gt)' \
 	--eval '(ql:quickload :gt/misc)' \
 	--eval '(ql:quickload :$(PACKAGE_NAME)/run-$*)' \
 	--eval '(setf uiop/image::*lisp-interaction* nil)' \
@@ -129,6 +130,7 @@ $(TEST_BIN_DIR)/%: $(LISP_DEPS) $(MANIFEST)
 	@rm -f $@
 	CC=$(CC) $(LISP_HOME) LISP=$(LISP) $(LISP) $(LISP_FLAGS) \
 	--load $(QUICK_LISP)/setup.lisp \
+	--eval '(ql:quickload :gt)' \
 	--eval '(ql:quickload :gt/misc)' \
 	--eval '(ql:quickload :$(PACKAGE_NAME)/run-$*)' \
 	--eval '(setf uiop/image::*lisp-interaction* nil)' \
