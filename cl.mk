@@ -33,7 +33,7 @@ DOC_PACKAGES ?= $(PACKAGE_NAME)
 # You can set this as an environment variable to point to an alternate
 # quicklisp install location.  If you do, ensure that it ends in a "/"
 # character, and that you use the $HOME variable instead of ~.
-INSTDIR ?= /usr/synth
+INSTDIR ?= $(HOME)
 QUICK_LISP ?= $(INSTDIR)/quicklisp/
 
 MANIFEST=$(QUICK_LISP)/local-projects/system-index.txt
