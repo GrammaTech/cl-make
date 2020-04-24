@@ -97,10 +97,10 @@ endif
 all: $(addprefix bin/, $(BINS))
 
 ifneq ($(GT),)
-.qlfile: .ci/qlfile.grammatech
+.qlfile: .qlfile.grammatech
 	cp $< $@
 else
-.qlfile: .ci/qlfile.external
+.qlfile: .qlfile.external
 	cp $< $@
 endif
 
