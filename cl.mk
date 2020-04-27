@@ -56,13 +56,12 @@ endif
 endif
 REPL_STARTUP ?= ()
 
-ifneq ($(LISP_HEAP),)
+LISP_HEAP ?= 8192
 ifneq (,$(findstring sbcl, $(LISP)))
 LISP_FLAGS += --dynamic-space-size $(LISP_HEAP)
 else
 ifneq (,$(findstring ccl, $(LISP)))
 LISP_FLAGS += --heap-reserve $(LISP_HEAP)M
-endif
 endif
 endif
 
