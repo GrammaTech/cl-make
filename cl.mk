@@ -294,12 +294,12 @@ doc/include/sb-texinfo.texinfo: $(LISP_DEPS)
 	--eval '(progn (list $(LOADS) $(cparen))' \
 	--script .cl-make/generate-api-docs packages $(DOC_PACKAGES)
 
-info: doc/$(PACKAGE_NAME).info $(MANIFEST)
+info: $(LISP_DEPS) $(MANIFEST) doc/$(PACKAGE_NAME).info
 
 doc/$(PACKAGE_NAME).info: doc/$(PACKAGE_NAME).texi doc/include/sb-texinfo.texinfo $(DOC_DEPS)
 	makeinfo $< -o doc/$(PACKAGE_NAME).info
 
-html: doc/$(PACKAGE_NAME).texi doc/include/sb-texinfo.texinfo $(DOC_DEPS) $(MANIFEST)
+html: $(LISP_DEPS) $(MANIFEST) doc/$(PACKAGE_NAME).texi doc/include/sb-texinfo.texinfo $(DOC_DEPS)
 	makeinfo --html $< -o doc/$(PACKAGE_NAME)/
 
 gh-pages: doc
