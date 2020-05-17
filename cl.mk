@@ -299,10 +299,10 @@ doc/include/sb-texinfo.texinfo: $(LISP_DEPS)
 info: $(LISP_DEPS) $(MANIFEST) doc/$(PACKAGE_NAME).info
 
 doc/$(PACKAGE_NAME).info: doc/$(PACKAGE_NAME).texi doc/include/sb-texinfo.texinfo $(DOC_DEPS)
-	makeinfo $< -o doc/$(PACKAGE_NAME).info
+	makeinfo doc/$(PACKAGE_NAME).texi -o doc/$(PACKAGE_NAME).info
 
 html: $(LISP_DEPS) $(MANIFEST) doc/$(PACKAGE_NAME).texi doc/include/sb-texinfo.texinfo $(DOC_DEPS)
-	makeinfo --html $< -o doc/$(PACKAGE_NAME)/
+	makeinfo --html doc/$(PACKAGE_NAME).texi -o doc/$(PACKAGE_NAME)/
 
 gh-pages: doc
 	rsync -aruv doc/$(PACKAGE_NAME)/ . --exclude .gitignore
