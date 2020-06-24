@@ -22,7 +22,7 @@
 SHELL=bash
 
 .PHONY: test-artifacts check unit-check real-check clean more-clean real-clean \
-        Dockerfile doc api info html
+        doc api info html
 
 .SECONDARY:
 
@@ -230,36 +230,6 @@ long-bin-check: test-artifacts $(addprefix check/, $(LONG_BIN_TESTS))
 long-bin-check-desc: test-artifacts $(addprefix desc/, $(LONG_BIN_TESTS))
 
 
-## Docker file creation convenience target.
-ifndef OS
-ifneq ("$(shell which lsb_release 2>/dev/null)","")
-# Use lsb_release to get the name of the Linux distribution.
-OS=$(shell lsb_release -a|grep 'Distributor ID:'|sed 's/Distributor ID:[[:space:]]\+//'|tr 'A-Z' 'a-z' 2>/dev/null)
-else
-# Assume that if lsb_release is not installed we're on Arch Linux.
-OS=arch
-endif
-endif
-
-# This creates a Dockerfile which may be used to build a local image
-# using the current directory instead of checking the repo out from
-# git.  After running this command run the following to build the
-# image.
-#
-#     Docker build -t my-local-image -f Dockerfile .
-#
-# You can then run the image as your would any other, e.g. as follows.
-#
-#     dr my-local-image
-#
-# or
-#
-#     docker run --net=host -e LOCAL_USER=root -it my-local-image
-#
-Dockerfile: Dockerfile.$(OS)
-	cp $< $@
-
-
 ## Cleaning
 clean:
 	rm -f $(addprefix bin/, $(BINS))
@@ -275,7 +245,7 @@ more-clean: clean doc-clean
 	find . -type f -name "*.lx64fsl" -exec rm {} \+
 
 real-clean: more-clean
-	rm -f .qlfile Dockerfile
+	rm -f .qlfile
 	rm -rf $(MANIFEST)
 
 
