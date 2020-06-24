@@ -21,7 +21,8 @@
 # LISP_STACK --------- Size of the LISP stack (Mb)
 SHELL=bash
 
-.PHONY: test-artifacts check unit-check real-check clean more-clean real-clean \
+.PHONY: test-artifacts check unit-check real-check \
+        $(PACKAGE_NAME)-clean clean more-clean real-clean \
         doc api info html
 
 .SECONDARY:
@@ -231,7 +232,7 @@ long-bin-check-desc: test-artifacts $(addprefix desc/, $(LONG_BIN_TESTS))
 
 
 ## Cleaning
-clean:
+clean: $(PACKAGE_NAME)-clean
 	rm -f $(addprefix bin/, $(BINS))
 	rm -f $(TEST_ARTIFACTS)
 	rm -f $(addprefix test/bin/, $(TEST_BINS))
