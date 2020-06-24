@@ -237,7 +237,7 @@ clean:
 	rm -f $(addprefix test/bin/, $(TEST_BINS))
 
 doc-clean:
-	git clean -fx doc/
+	git clean -fxd doc/
 
 more-clean: clean doc-clean
 	find . -type f -name "*.fasl" -exec rm {} \+
