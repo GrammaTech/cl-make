@@ -108,7 +108,7 @@ $(MANIFEST): .qlfile
 	dependency=$$(echo "$${pair}"|cut -f1 -d' '); \
 	base=$(QUICK_LISP)/local-projects/$$(basename $$dependency .git); \
 	branch=$$(echo "$${pair}"|cut -f2 -d' '); \
-	[ -d $$base ] || git clone $$dependency $$base --branch $$branch; \
+	[ -d $$base ] || git clone --recursive $$dependency $$base --branch $$branch; \
 	done
 	$(LISP_HOME) $(LISP) $(LISP_FLAGS) --load $(QUICK_LISP)/setup.lisp \
 		--eval '(ql:register-local-projects)' \
