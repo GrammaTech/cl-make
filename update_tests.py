@@ -91,9 +91,12 @@ def cmd(args):
     Return the output from running a command whether it succeeds or not.
     """
     try:
-        return subprocess.check_output(args, encoding='utf-8')
+        return {
+            'exit_code': 0,
+            'output': subprocess.check_output(args, encoding='utf-8'),
+        }
     except subprocess.CalledProcessError as error:
-        return error.output
+        return {'exit_code': error.returncode, 'output': error.output}
 
 
 def collect():
@@ -104,10 +107,11 @@ def collect():
     for filename in glob.glob('*.md'):
         stem, _ = os.path.splitext(filename)
         args = ['../readme.py', '--timeout=1', '--', filename]
-        obj = normalize(cmd(args))
+        result = cmd(args)
+        obj = normalize(result['output'])
         tmp = obj['tmp']
         lisp = slurp(tmp) if tmp else None
-        yield stem, obj['out'], lisp
+        yield stem, result['exit_code'], obj['out'], lisp
 
 
 def spit(filename, contents):
@@ -124,8 +128,8 @@ def spit(filename, contents):
 
 
 if __name__ == '__main__':
-    for stem, output, lisp in collect():
+    for stem, _, output, lisp in collect():
         print(stem)  # to show progress, since these runs are a bit slow
         spit(f'{stem}.txt', output)
-        if lisp:
+        if lisp is not None:
             spit(f'{stem}.lisp', lisp)
