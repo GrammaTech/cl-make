@@ -148,6 +148,19 @@ def lisp_examples(element):
     return examples
 
 
+def quicklisp():
+    """
+    Return the path to the Quicklisp directory.
+    """
+    # Quicklisp sets this variable on installation
+    if 'QUICK_LISP' in os.environ:
+        return os.environ['QUICK_LISP']
+    else:
+        # but it doesn't show up in a Docker image without using ENV, so
+        # in particular SEL doesn't have $QUICK_LISP at time of writing
+        return f'{os.environ["HOME"]}/quicklisp'
+
+
 # regex matching the default SBCL prompt, only at the start of a line
 prompt = r'(?<![^\n])\* '
 # possibilities when we eval
@@ -271,7 +284,7 @@ if __name__ == '__main__':
     forms = []
     # Quicklisp isn't present by default in a raw SBCL in the Docker
     # image, but it is installed already so we just need to load it
-    args = ['--load', f'{os.environ["QUICK_LISP"]}/setup.lisp']
+    args = ['--load', f'{quicklisp()}/setup.lisp']
     repl = pexpect.spawn(
         'sbcl',
         args,
