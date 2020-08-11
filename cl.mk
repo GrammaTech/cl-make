@@ -207,6 +207,9 @@ repl-test: $(QUICK_LISP)/setup.lisp test-artifacts
 	--eval '(in-package :$(PACKAGE_NAME)-test)'		\
 	--eval '(gt/misc:with-quiet-compilation $(REPL_STARTUP))'
 
+check-readme: $(QUICK_LISP)/setup.lisp
+	.cl-make/readme.py README.md
+
 
 ## Command-line testing.
 BIN_TEST_DIR ?= test/bin

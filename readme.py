@@ -271,7 +271,7 @@ if __name__ == '__main__':
     forms = []
     # Quicklisp isn't present by default in a raw SBCL in the Docker
     # image, but it is installed already so we just need to load it
-    args = ['--load', f'{os.environ["QUICK_LISP"]}/quicklisp/setup.lisp']
+    args = ['--load', f'{os.environ["QUICK_LISP"]}/setup.lisp']
     repl = pexpect.spawn(
         'sbcl',
         args,
