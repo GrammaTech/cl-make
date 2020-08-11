@@ -1,0 +1,39 @@
+============================= test session starts ==============================
+platform linux -- Python 0.0.0, pytest-0.0.0, py-0.0.0, pluggy-0.0.0
+rootdir: cl-make, configfile: pytest.ini
+collected 1 item
+
+error.md::1 
+-------------------------------- live log call ---------------------------------
+* (format t (+ 1 2))
+
+debugger invoked on a SB-KERNEL:CASE-FAILURE in thread
+#<THREAD "main thread" RUNNING {1000000000}>:
+  3 fell through ETYPECASE expression.
+  Wanted one of (SIMPLE-STRING STRING SB-FORMAT::FMT-CONTROL).
+
+Type HELP for debugger help, or (SB-EXT:EXIT) to exit from SBCL.
+
+restarts (invokable by number or by possibly-abbreviated name):
+  0: [ABORT] Exit debugger, returning to top level.
+
+(SB-FORMAT::%FORMAT #<SYNONYM-STREAM :SYMBOL SB-SYS:*STDOUT* {1000000000}> 3 NIL NIL)
+0] 
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+___________________________ [readme] Lisp example #1 ___________________________
+Timeout: either took too long or an error occurred.
+
+To reproduce this in a REPL, first evaluate all the forms up to
+but not including this one by running the following command:
+
+    sbcl --load /tmp/error_________.lisp
+
+Then evaluate the erroneous form:
+
+    (format t (+ 1 2))
+=========================== short test summary info ============================
+FAILED error.md::1
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+============================== 1 failed in 0.00s ===============================

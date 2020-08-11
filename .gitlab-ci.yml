@@ -2,4 +2,4 @@ readme:
   image: $DOCKER_REGISTRY/$CI_PROJECT_PATH
   tags: ["kubernetes", "cluster"]
   script:
-    - ./readme.py # should simply quit since this README has no Lisp examples
+    - pytest -vv

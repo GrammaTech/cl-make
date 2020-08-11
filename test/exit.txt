@@ -1,0 +1,27 @@
+============================= test session starts ==============================
+platform linux -- Python 0.0.0, pytest-0.0.0, py-0.0.0, pluggy-0.0.0
+rootdir: cl-make, configfile: pytest.ini
+collected 1 item
+
+exit.md::1 
+-------------------------------- live log call ---------------------------------
+* (quit)
+
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+___________________________ [readme] Lisp example #1 ___________________________
+Exited REPL unexpectedly.
+
+To reproduce this in a REPL, first evaluate all the forms up to
+but not including this one by running the following command:
+
+    sbcl --load /tmp/exit_________.lisp
+
+Then evaluate the erroneous form:
+
+    (quit)
+=========================== short test summary info ============================
+FAILED exit.md::1
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+============================== 1 failed in 0.00s ===============================

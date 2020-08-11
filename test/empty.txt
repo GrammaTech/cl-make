@@ -1,0 +1,19 @@
+============================= test session starts ==============================
+platform linux -- Python 0.0.0, pytest-0.0.0, py-0.0.0, pluggy-0.0.0
+rootdir: cl-make, configfile: pytest.ini
+collected 2 items
+
+empty.md::1 
+-------------------------------- live log call ---------------------------------
+* (values)
+
+PASSED                                                                   [ 50%]
+empty.md::2 
+-------------------------------- live log call ---------------------------------
+* (format t "Hello, world!")
+Hello, world!
+NIL
+
+PASSED                                                                   [100%]
+
+============================== 2 passed in 0.00s ===============================

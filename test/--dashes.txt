@@ -1,0 +1,13 @@
+============================= test session starts ==============================
+platform linux -- Python 0.0.0, pytest-0.0.0, py-0.0.0, pluggy-0.0.0
+rootdir: cl-make, configfile: pytest.ini
+collected 1 item
+
+--dashes.md::1 
+-------------------------------- live log call ---------------------------------
+* :hyphens
+:HYPHENS
+
+PASSED                                                                   [100%]
+
+============================== 1 passed in 0.00s ===============================

@@ -1,0 +1,51 @@
+============================= test session starts ==============================
+platform linux -- Python 0.0.0, pytest-0.0.0, py-0.0.0, pluggy-0.0.0
+rootdir: cl-make, configfile: pytest.ini
+collected 3 items
+
+last.md::1 
+-------------------------------- live log call ---------------------------------
+* (defparameter foo (+ 1 2))
+FOO
+
+PASSED                                                                   [ 33%]
+last.md::2 
+-------------------------------- live log call ---------------------------------
+* (defparameter bar (+ 1 foo))
+BAR
+
+PASSED                                                                   [ 66%]
+last.md::3 
+-------------------------------- live log call ---------------------------------
+* (format t bar)
+
+debugger invoked on a SB-KERNEL:CASE-FAILURE in thread
+#<THREAD "main thread" RUNNING {1000000000}>:
+  4 fell through ETYPECASE expression.
+  Wanted one of (SIMPLE-STRING STRING SB-FORMAT::FMT-CONTROL).
+
+Type HELP for debugger help, or (SB-EXT:EXIT) to exit from SBCL.
+
+restarts (invokable by number or by possibly-abbreviated name):
+  0: [ABORT] Exit debugger, returning to top level.
+
+(SB-FORMAT::%FORMAT #<SYNONYM-STREAM :SYMBOL SB-SYS:*STDOUT* {1000000000}> 4 NIL NIL)
+0] 
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+___________________________ [readme] Lisp example #3 ___________________________
+Timeout: either took too long or an error occurred.
+
+To reproduce this in a REPL, first evaluate all the forms up to
+but not including this one by running the following command:
+
+    sbcl --load /tmp/last_________.lisp
+
+Then evaluate the erroneous form:
+
+    (format t bar)
+=========================== short test summary info ============================
+FAILED last.md::3
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+========================= 1 failed, 2 passed in 0.00s ==========================
