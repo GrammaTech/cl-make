@@ -6,6 +6,7 @@ Update the readme.py tests in this repository.
 
 import glob
 import os
+import pathlib
 import re
 import subprocess
 import tempfile
@@ -103,7 +104,8 @@ def collect():
     """
     Return normalized outputs for all files in the test directory.
     """
-    os.chdir('test')  # to catch possible bug with --dashes.md
+    # catch possible bug with --dashes.md
+    os.chdir(pathlib.Path(__file__).resolve().parent / 'test')
     for filename in glob.glob('*.md'):
         stem, _ = os.path.splitext(filename)
         args = ['../readme.py', '--timeout=1', '--', filename]
