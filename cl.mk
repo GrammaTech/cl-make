@@ -23,7 +23,7 @@ SHELL=bash
 
 .PHONY: test-artifacts check unit-check real-check \
         $(PACKAGE_NAME)-clean clean more-clean real-clean \
-        doc api info html
+        doc api info html check-readme
 
 .SECONDARY:
 
