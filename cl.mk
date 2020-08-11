@@ -172,7 +172,7 @@ real-check: check long-bin-check
 
 ## Interactive testing
 SWANK_PORT ?= 4005
-swank: $(QUICK_LISP)/setup.lisp
+swank:
 	$(LISP_HOME) $(LISP)					\
 	--load $<						\
 	--eval '(ql:quickload :swank)'				\
@@ -180,7 +180,7 @@ swank: $(QUICK_LISP)/setup.lisp
 	--eval '(in-package :$(PACKAGE_NAME))'			\
 	--eval '(ql::call-with-quiet-compilation (lambda () (swank:create-server :port $(SWANK_PORT) :style :spawn :dont-close t)))'
 
-swank-test: $(QUICK_LISP)/setup.lisp test-artifacts
+swank-test: test-artifacts
 	$(LISP_HOME) $(LISP) $(LISP_FLAGS)			\
 	--load $<						\
 	--eval '(ql:quickload :gt/misc :silent t)' \
@@ -190,14 +190,14 @@ swank-test: $(QUICK_LISP)/setup.lisp test-artifacts
 	--eval '(in-package :$(PACKAGE_NAME)-test)'		\
 	--eval '(gt/misc:with-quiet-compilation (swank:create-server :port $(SWANK_PORT) :style :spawn :dont-close t))'
 
-repl: $(QUICK_LISP)/setup.lisp
+repl:
 	$(LISP_HOME) $(LISP) $(LISP_FLAGS)			\
 	--load $<						\
 	--eval '(ql:quickload :$(PACKAGE_NAME))'		\
 	--eval '(in-package :$(PACKAGE_NAME))'			\
 	--eval '(ql::call-with-quiet-compilation $(REPL_STARTUP))'
 
-repl-test: $(QUICK_LISP)/setup.lisp test-artifacts
+repl-test: test-artifacts
 	$(LISP_HOME) $(LISP) $(LISP_FLAGS)			\
 	--load $<						\
 	--eval '(ql:quickload :repl)'				\
@@ -207,7 +207,7 @@ repl-test: $(QUICK_LISP)/setup.lisp test-artifacts
 	--eval '(in-package :$(PACKAGE_NAME)-test)'		\
 	--eval '(gt/misc:with-quiet-compilation $(REPL_STARTUP))'
 
-check-readme: $(QUICK_LISP)/setup.lisp
+check-readme:
 	.cl-make/readme.py README.md
 
 
