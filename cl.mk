@@ -174,7 +174,7 @@ real-check: check long-bin-check
 SWANK_PORT ?= 4005
 swank:
 	$(LISP_HOME) $(LISP)					\
-	--load $<						\
+	--load $(QUICK_LISP)/setup.lisp				\
 	--eval '(ql:quickload :swank)'				\
 	--eval '(ql:quickload :$(PACKAGE_NAME))'		\
 	--eval '(in-package :$(PACKAGE_NAME))'			\
@@ -182,7 +182,7 @@ swank:
 
 swank-test: test-artifacts
 	$(LISP_HOME) $(LISP) $(LISP_FLAGS)			\
-	--load $<						\
+	--load $(QUICK_LISP)/setup.lisp				\
 	--eval '(ql:quickload :gt/misc :silent t)' \
 	--eval '(ql:quickload :swank)'				\
 	--eval '(ql:quickload :$(PACKAGE_NAME))'		\
