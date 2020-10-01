@@ -221,9 +221,18 @@ check/%: $(BIN_TEST_DIR)/% $(addprefix bin/, $(BINS))
 	printf "$(FAIL)\t\e[1;1m%s\e[1;0m\n" $*; exit 1; \
 	fi
 
+debug/%: $(BIN_TEST_DIR)/% $(addprefix bin/, $(BINS))
+	@export PATH=./bin:$(PATH); \
+	if ./$<;then \
+	printf "$(PASS)\t\e[1;1m%s\e[1;0m\n" $*; exit 0; \
+	else \
+	printf "$(FAIL)\t\e[1;1m%s\e[1;0m\n" $*; exit 1; \
+	fi
+
 desc/%: check/%
 	@$(BIN_TEST_DIR)/$* -d
 
+debug-check: test-artifacts $(addprefix debug/, $(BIN_TESTS))
 bin-check: test-artifacts $(addprefix check/, $(BIN_TESTS))
 bin-check-desc: test-artifacts $(addprefix desc/, $(BIN_TESTS))
 
