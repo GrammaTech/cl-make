@@ -151,13 +151,13 @@ test-artifacts: $(TEST_ARTIFACTS)
 unit-check: test-artifacts $(TEST_LISP_DEPS) $(LISP_DEPS) $(MANIFEST)
 	CC=$(CC) $(LISP_HOME) LISP=$(LISP) $(LISP) $(LISP_FLAGS) \
 	--load $(QUICK_LISP)/setup.lisp \
-	--eval '(ql:quickload :stefil+ :silent t)' \
+	--eval "(ql:quickload '(stefil+ $(PACKAGE_NAME)) :silent t)" \
 	--eval '(uiop:quit (if (progn (asdf:test-system :$(PACKAGE_NAME)) stefil+:*success*) 0 1))'
 
 long-unit-check: test-artifacts $(TEST_LISP_DEPS) $(LISP_DEPS) $(MANIFEST)
 	CC=$(CC) $(LISP_HOME) LISP=$(LISP) $(LISP) $(LISP_FLAGS) \
 	--load $(QUICK_LISP)/setup.lisp \
-	--eval '(ql:quickload :stefil+ :silent t)' \
+	--eval "(ql:quickload '(stefil+ $(PACKAGE_NAME)) :silent t)" \
 	--eval '(uiop:quit (if (let ((stefil+:*long-tests* t)) (progn (asdf:test-system :$(PACKAGE_NAME)) stefil+:*success*)) 0 1))'
 
 unit-check/%: test-artifacts $(TEST_LISP_DEPS) $(LISP_DEPS) $(MANIFEST)
