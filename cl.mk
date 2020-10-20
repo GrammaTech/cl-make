@@ -21,7 +21,7 @@
 # LISP_STACK --------- Size of the LISP stack (Mb)
 SHELL=bash
 
-.PHONY: test-artifacts check unit-check real-check \
+.PHONY: test-artifacts check unit-check long-unit-check real-check \
         $(PACKAGE_NAME)-clean clean more-clean real-clean \
         doc api info html check-readme
 
@@ -154,6 +154,12 @@ unit-check: test-artifacts $(TEST_LISP_DEPS) $(LISP_DEPS) $(MANIFEST)
 	--eval '(ql:quickload :stefil+ :silent t)' \
 	--eval '(uiop:quit (if (progn (asdf:test-system :$(PACKAGE_NAME)) stefil+:*success*) 0 1))'
 
+long-unit-check: test-artifacts $(TEST_LISP_DEPS) $(LISP_DEPS) $(MANIFEST)
+	CC=$(CC) $(LISP_HOME) LISP=$(LISP) $(LISP) $(LISP_FLAGS) \
+	--load $(QUICK_LISP)/setup.lisp \
+	--eval '(ql:quickload :stefil+ :silent t)' \
+	--eval '(uiop:quit (if (let ((stefil+:*long-tests* t)) (progn (asdf:test-system :$(PACKAGE_NAME)) stefil+:*success*)) 0 1))'
+
 unit-check/%: test-artifacts $(TEST_LISP_DEPS) $(LISP_DEPS) $(MANIFEST)
 	@CC=$(CC) $(LISP_HOME) LISP=$(LISP) $(LISP) $(LISP_FLAGS) \
 	--load $(QUICK_LISP)/setup.lisp \
@@ -166,7 +172,7 @@ unit-check/%: test-artifacts $(TEST_LISP_DEPS) $(LISP_DEPS) $(MANIFEST)
 
 check: unit-check bin-check
 
-real-check: check long-bin-check
+real-check: long-unit-check bin-check long-bin-check
 
 
 ## Interactive testing
