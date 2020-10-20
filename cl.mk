@@ -151,9 +151,8 @@ test-artifacts: $(TEST_ARTIFACTS)
 unit-check: test-artifacts $(TEST_LISP_DEPS) $(LISP_DEPS) $(MANIFEST)
 	CC=$(CC) $(LISP_HOME) LISP=$(LISP) $(LISP) $(LISP_FLAGS) \
 	--load $(QUICK_LISP)/setup.lisp \
-	--eval '(ql:quickload :$(PACKAGE_NAME)/test)' \
-	--eval '($(PACKAGE_NAME)/test::run-batch)' \
-	--eval '(uiop:quit (if $(PACKAGE_NAME)/test::*success* 0 1))'
+	--eval '(ql:quickload :stefil+ :silent t)' \
+	--eval '(uiop:quit (if (progn (asdf:test-system :$(PACKAGE_NAME)) stefil+:*success*) 0 1))'
 
 unit-check/%: test-artifacts $(TEST_LISP_DEPS) $(LISP_DEPS) $(MANIFEST)
 	@CC=$(CC) $(LISP_HOME) LISP=$(LISP) $(LISP) $(LISP_FLAGS) \
