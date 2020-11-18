@@ -23,7 +23,7 @@ SHELL=bash
 
 .PHONY: test-artifacts check unit-check long-unit-check real-check \
         $(PACKAGE_NAME)-clean clean more-clean real-clean \
-        doc api info html check-readme
+        doc api info html check-readme dependencies
 
 .SECONDARY:
 
@@ -114,6 +114,8 @@ $(MANIFEST): .qlfile
 	$(LISP_HOME) $(LISP) $(LISP_FLAGS) --load $(QUICK_LISP)/setup.lisp \
 		--eval '(ql:register-local-projects)' \
 		--eval '#+sbcl (exit) #+ccl (quit)'
+
+dependencies: $(MANIFEST)
 
 bin/%: $(LISP_DEPS) $(MANIFEST)
 	@rm -f $@
