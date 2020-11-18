@@ -183,7 +183,7 @@ swank:
 	--eval '(ql:quickload :swank)'				\
 	--eval '(ql:quickload :$(PACKAGE_NAME))'		\
 	--eval '(in-package :$(PACKAGE_NAME))'			\
-	--eval '(ql::call-with-quiet-compilation (lambda () (swank:create-server :port $(SWANK_PORT) :style :spawn :dont-close t)))'
+	--eval '(ql::call-with-quiet-compilation (lambda () (let ((swank::*loopback-interface* "0.0.0.0")) (swank:create-server :port $(SWANK_PORT) :style :spawn :dont-close t))))'
 
 swank-test: test-artifacts
 	$(LISP_HOME) $(LISP) $(LISP_FLAGS)			\
