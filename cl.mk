@@ -197,7 +197,6 @@ swank-test: test-artifacts
 
 repl:
 	$(LISP_HOME) $(LISP) $(LISP_FLAGS)			\
-	--load $<						\
 	--eval '(ql:quickload :$(PACKAGE_NAME))'		\
 	--eval '(in-package :$(PACKAGE_NAME))'			\
 	--eval '(ql::call-with-quiet-compilation $(REPL_STARTUP))'
