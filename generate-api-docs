@@ -27,54 +27,18 @@
 
 (pop sb-ext:*posix-argv*)
 
-(defun usage ()
+(unless (> (length sb-ext:*posix-argv*) 1)
   (write-line
-   "USAGE: generate-api-docs [includes|packages] package1 package2...")
+   "USAGE: generate-api-docs packages...")
   (sb-ext:exit :code 1))
 
-(unless (> (length sb-ext:*posix-argv*) 1)
-  (usage))
+(setf sb-impl::*default-external-format* :utf8)
 
-(defparameter packages
-  (mapcar #'alexandria:make-keyword
-          (mapcar #'string-upcase (cdr sb-ext:*posix-argv*))))
-
-(mapc #'require packages)
-
-(defun doc-name (package)
-  (let ((package (find-package package)))
-    (or (car (package-nicknames package))
-        (package-name package))))
-
-(defun doc-file (package)
-  (concatenate 'string
-    (cl-ppcre:regex-replace-all "/" (string-downcase (doc-name package)) "-")
-    "-api.texi"))
-
-(defun doc-title (package)
-  (concatenate 'string (string-upcase (doc-name package)) " API"))
-
-(let ((action (alexandria:make-keyword
-               (string-upcase (car sb-ext:*posix-argv*)))))
-  (case action
-    (:includes
-     (generate-includes "./doc/include/" packages :base-package (car packages))
-     (generate-comment-includes "./doc/include/" packages :base-package (car packages))
-     (format t "~&Generated includes for ~{~a~^, ~}.~%" packages))
-    (:packages
-     ;; Re-run to update the doc/foo-api.texi files with new links to
-     ;; newly documented classes, functions, methods, types, structures,
-     ;; and macros.
-     (uiop/filesystem:with-current-directory ("doc/")
-       (mapc (lambda (package path title)
-               (document-package package
-                                 :output-file path
-                                 :standalone nil
-                                 :title title))
-             packages
-             (mapcar #'doc-file packages)
-             (mapcar #'doc-title packages)))
-     (format t "~&Generated full package docs for ~{~a~^, ~}.~%" packages))
-    (otherwise
-     (format t "~&Unknown action \"~S\"~%" action)
-     (usage))))
+(format t "Wrote documentation to ~A.~%"
+        (document-system
+         "Software Evolution Library Index"
+         (mapcar #'alexandria:make-keyword (mapcar #'string-upcase sb-ext:*posix-argv*))
+         :next "ChangeLog"
+         :previous "Troubleshooting"
+         :top "Top"
+         :dir "doc/"))

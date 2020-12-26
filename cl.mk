@@ -266,15 +266,13 @@ doc: info html
 
 api: doc/include/sb-texinfo.texinfo
 
-oparen=(
-cparen=)
-LOADS=$(addprefix $(cparen)$(oparen)ql:quickload :, $(DOC_PACKAGES))
+LOADS=$(addprefix :, $(DOC_PACKAGES))
 
 doc/include/sb-texinfo.texinfo: $(LISP_DEPS)
 	SBCL_HOME=$(dir $(shell which sbcl))../lib/sbcl sbcl --load $(QUICK_LISP)/setup.lisp \
-	--eval '(ql:quickload :gt/full)' \
-	--eval '(progn (list $(LOADS) $(cparen))' \
-	--script .cl-make/generate-api-docs packages $(DOC_PACKAGES)
+	--eval '(setf sb-impl::*default-external-format* :utf8)' \
+	--eval "(ql:quickload '(:gt/full $(LOADS)))" \
+	--script .cl-make/generate-api-docs $(DOC_PACKAGES)
 
 info: $(LISP_DEPS) $(MANIFEST) doc/$(PACKAGE_NAME).info
 
