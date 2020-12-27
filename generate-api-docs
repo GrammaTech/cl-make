@@ -32,8 +32,6 @@
    "USAGE: generate-api-docs packages...")
   (sb-ext:exit :code 1))
 
-(setf sb-impl::*default-external-format* :utf8)
-
 (format t "Wrote documentation to ~A.~%"
         (document-system
          "Software Evolution Library Index"

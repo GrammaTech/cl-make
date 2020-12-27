@@ -77,7 +77,7 @@ endif
 endif
 
 ifneq (,$(findstring sbcl, $(LISP)))
-LISP_FLAGS += --noinform --no-userinit --no-sysinit --disable-debugger
+LISP_FLAGS += --noinform --no-userinit --no-sysinit --disable-debugger --eval '(setf sb-impl::*default-external-format* :utf8)'
 else
 ifneq (,$(findstring ecl, $(LISP)))
 LISP_FLAGS += --norc
@@ -269,8 +269,7 @@ api: doc/include/sb-texinfo.texinfo
 LOADS=$(addprefix :, $(DOC_PACKAGES))
 
 doc/include/sb-texinfo.texinfo: $(LISP_DEPS)
-	SBCL_HOME=$(dir $(shell which sbcl))../lib/sbcl sbcl --load $(QUICK_LISP)/setup.lisp \
-	--eval '(setf sb-impl::*default-external-format* :utf8)' \
+	SBCL_HOME=$(dir $(shell which sbcl))../lib/sbcl sbcl $(LISP_FLAGS) --load $(QUICK_LISP)/setup.lisp \
 	--eval "(ql:quickload '(:gt/full $(LOADS)))" \
 	--script .cl-make/generate-api-docs $(DOC_PACKAGES)
 
