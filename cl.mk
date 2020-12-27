@@ -282,4 +282,7 @@ html: $(LISP_DEPS) $(MANIFEST) doc/$(PACKAGE_NAME).texi doc/include/sb-texinfo.t
 	makeinfo --html doc/$(PACKAGE_NAME).texi -o doc/$(PACKAGE_NAME)/
 
 gh-pages: doc
+	git checkout gh-pages
 	rsync -aruv doc/$(PACKAGE_NAME)/ . --exclude .gitignore
+	git add .
+	git commit -m "GH-Pages update"
