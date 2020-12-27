@@ -29,14 +29,14 @@
 
 (unless (> (length sb-ext:*posix-argv*) 1)
   (write-line
-   "USAGE: generate-api-docs packages...")
+   "USAGE: generate-api-docs title next previous packages...")
   (sb-ext:exit :code 1))
 
 (format t "Wrote documentation to ~A.~%"
         (document-system
-         "Software Evolution Library Index"
-         (mapcar #'alexandria:make-keyword (mapcar #'string-upcase sb-ext:*posix-argv*))
-         :next "ChangeLog"
-         :previous "Troubleshooting"
+         (first sb-ext:*posix-argv*)
+         (mapcar #'alexandria:make-keyword (mapcar #'string-upcase (cdddr sb-ext:*posix-argv*)))
+         :next (second sb-ext:*posix-argv*)
+         :previous (third sb-ext:*posix-argv*)
          :top "Top"
          :dir "doc/"))

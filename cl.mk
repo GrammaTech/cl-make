@@ -7,6 +7,9 @@
 # DOC_PACKAGES ------- Names of packages to document
 #                      (default: PACKAGE_NAME)
 # DOC_DEPS ----------- Optional additional Makefile targets for doc
+# API_TITLE ---------- Title of the API section in the doc
+# API_NEXT ----------- Title of the section after the API in the doc
+# API_PREV ----------- Title of the section before the API in the doc
 # BINS --------------- Names of binaries to build
 # TEST_ARTIFACTS ----- Name of dependencies for testing
 # TEST_BINS ---------- Name of lisp binaries needed for testing
@@ -271,7 +274,7 @@ LOADS=$(addprefix :, $(DOC_PACKAGES))
 doc/include/sb-texinfo.texinfo: $(LISP_DEPS)
 	SBCL_HOME=$(dir $(shell which sbcl))../lib/sbcl sbcl $(LISP_FLAGS) --load $(QUICK_LISP)/setup.lisp \
 	--eval "(ql:quickload '(:gt/full $(LOADS)))" \
-	--script .cl-make/generate-api-docs $(DOC_PACKAGES)
+	--script .cl-make/generate-api-docs $(API_TITLE) $(API_NEXT) $(API_PREV) $(DOC_PACKAGES)
 
 info: $(LISP_DEPS) $(MANIFEST) doc/$(PACKAGE_NAME).info
 
