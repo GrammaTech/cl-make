@@ -284,8 +284,9 @@ doc/$(PACKAGE_NAME).info: doc/$(PACKAGE_NAME).texi doc/include/sb-texinfo.texinf
 html: $(LISP_DEPS) $(MANIFEST) doc/$(PACKAGE_NAME).texi doc/include/sb-texinfo.texinfo $(DOC_DEPS)
 	makeinfo --html doc/$(PACKAGE_NAME).texi -o doc/$(PACKAGE_NAME)/
 
-gh-pages: doc
+gh-pages: html
 	git checkout gh-pages
-	rsync -aruv doc/$(PACKAGE_NAME)/ . --exclude .gitignore
+	rm *.html
+	cp doc/$(PACKAGE_NAME)/*.html .
 	git add .
 	git commit -m "GH-Pages update"
