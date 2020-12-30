@@ -33,6 +33,9 @@ SHELL=bash
 # Set default values of PACKAGE_NICKNAME
 PACKAGE_NICKNAME ?= $(PACKAGE_NAME)
 DOC_PACKAGES ?= $(PACKAGE_NAME)
+API_TITLE ?= "$(PACKAGE_NAME) API"
+API_NEXT ?= ""
+API_PREV ?= ""
 
 # You can set this as an environment variable to point to an alternate
 # quicklisp install location.  If you do, ensure that it ends in a "/"
