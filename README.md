@@ -8,23 +8,26 @@
 To use this file first define the following variables in your makefile
 and then include cl.mk.
 
-| Variable Name        | Description                                       | Default value |
-|----------------------|---------------------------------------------------|---------------|
-| `PACKAGE_NAME`       | The full name of the CL package                   |               |
-| `PACKAGE_NICKNAME`   | The nickname of the CL package                    | PACKAGE_NAME  |
-| `DOC_PACKAGES`       | Names of the packages to document                 | PACKAGE_NAME  |
-| `DOC_DEPS`           | Optional additional Makefile doc targets          |               |
-| `BINS`               | Names of binaries to build with buildapp          |               |
-| `TEST_ARTIFACTS`     | Name of dependencies for testing                  |               |
-| `TEST_BINS`          | Names of lisp binaries needed for testing         |               |
-| `TEST_BIN_DIR`       | Directory of the lisp binaries needed for testing |               |
-| `LISP_DEPS`          | Files required to build CL package                |               |
-| `TEST_LISP_DEPS`     | Files required to build CL test package           |               |
-| `BIN_TEST_DIR`       | Directory holding command line tests              |               |
-| `BIN_TESTS`          | List of command line tests                        |               |
-| `LONG_BIN_TESTS`     | List of longer running command line tests         |               |
-| `LISP_HEAP`          | Size of the LISP heap (Mb)                        |               |
-| `LISP_STACK`         | Size of the LISP stack (Mb)                       |               |
+| Variable Name      | Description                                       | Default value       |
+|--------------------|---------------------------------------------------|---------------------|
+| `PACKAGE_NAME`     | The full name of the CL package                   |                     |
+| `PACKAGE_NICKNAME` | The nickname of the CL package                    | "$PACKAGE_NAME"     |
+| `DOC_PACKAGES`     | Names of the packages to document                 | "$PACKAGE_NAME"     |
+| `DOC_DEPS`         | Optional additional Makefile doc targets          |                     |
+| `API_TITLE`        | Title of the API section in the doc               | "$PACKAGE_NAME API" |
+| `API_NEXT`         | Title of the section after the API in the doc     |                     |
+| `API_PREV`         | Title of the section before the API in the doc    |                     |
+| `BINS`             | Names of binaries to build with buildapp          |                     |
+| `TEST_ARTIFACTS`   | Name of dependencies for testing                  |                     |
+| `TEST_BINS`        | Names of lisp binaries needed for testing         |                     |
+| `TEST_BIN_DIR`     | Directory of the lisp binaries needed for testing |                     |
+| `LISP_DEPS`        | Files required to build CL package                |                     |
+| `TEST_LISP_DEPS`   | Files required to build CL test package           |                     |
+| `BIN_TEST_DIR`     | Directory holding command line tests              |                     |
+| `BIN_TESTS`        | List of command line tests                        |                     |
+| `LONG_BIN_TESTS`   | List of longer running command line tests         |                     |
+| `LISP_HEAP`        | Size of the LISP heap (Mb)                        |                     |
+| `LISP_STACK`       | Size of the LISP stack (Mb)                       |                     |
 
 An example usage would be the following Makefile.
 
