@@ -115,7 +115,8 @@ $(MANIFEST): .qlfile
 	dependency=$$(echo "$${pair}"|cut -f1 -d' '); \
 	base=$(QUICK_LISP)/local-projects/$$(basename $$dependency .git); \
 	branch=$$(echo "$${pair}"|cut -f2 -d' '); \
-	[ -d $$base ] || git clone --recursive --depth=1 --shallow-submodules $$dependency $$base --branch $$branch; \
+	if ! [ -d $$base ]; then git clone --recursive --depth=1 --shallow-submodules $$dependency $$base --branch $$branch; fi; \
+	if [ -d $$base ] && ! [ -z $$branch ]; then git -C $$base fetch --all && git -C $$base checkout $$branch; fi; \
 	done
 	$(LISP_HOME) $(LISP) $(LISP_FLAGS) --load $(QUICK_LISP)/setup.lisp \
 		--eval '(ql:register-local-projects)' \
