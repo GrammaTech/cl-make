@@ -124,7 +124,7 @@ $(MANIFEST): .qlfile
 
 dependencies: $(MANIFEST)
 
-force-dependencies:
+force-dependencies: .qlfile
 	awk '{if($$4){br=$$4}else{br="master"}print $$3, br}' .qlfile|while read pair;do \
 	dependency=$$(echo "$${pair}"|cut -f1 -d' '); \
 	base=$(QUICK_LISP)/local-projects/$$(basename $$dependency .git); \
