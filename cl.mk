@@ -26,7 +26,7 @@ SHELL=bash
 
 .PHONY: test-artifacts check unit-check long-unit-check real-check \
         $(PACKAGE_NAME)-clean clean more-clean real-clean \
-        doc api info html check-readme dependencies force-dependencies
+        doc api info html check-readme dependencies
 
 .SECONDARY:
 
@@ -124,18 +124,6 @@ $(MANIFEST): .qlfile
 		--eval '#+sbcl (exit) #+ccl (quit)'
 
 dependencies: $(MANIFEST)
-
-force-dependencies: .qlfile
-	awk '{if($$4){br=$$4}else{br="master"}print $$3, br}' .qlfile|while read pair;do \
-	dependency=$$(echo "$${pair}"|cut -f1 -d' '); \
-	base=$(QUICK_LISP)/local-projects/$$(basename $$dependency .git); \
-	branch=$$(echo "$${pair}"|cut -f2 -d' '); \
-	if ! [ -d $$base ]; then git clone --recursive --depth=1 --shallow-submodules $$dependency $$base --branch $$branch; fi; \
-	if [ -d $$base ]; then git -C $$base fetch --all && git -C $$base checkout $${ $$branch : 'master' }; fi; \
-	done
-	$(LISP_HOME) $(LISP) $(LISP_FLAGS) --load $(QUICK_LISP)/setup.lisp \
-		--eval '(ql:register-local-projects)' \
-		--eval '#+sbcl (exit) #+ccl (quit)'
 
 bin/%: $(LISP_DEPS) $(MANIFEST)
 	@rm -f $@
