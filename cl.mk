@@ -83,12 +83,12 @@ endif
 endif
 
 ifneq (,$(findstring sbcl, $(LISP)))
-LISP_FLAGS += --noinform --no-userinit --no-sysinit --disable-debugger --eval '(setf sb-impl::*default-external-format* :utf8)'
+LISP_FLAGS += --noinform --disable-debugger --eval '(setf sb-impl::*default-external-format* :utf8)'
 else
 ifneq (,$(findstring ecl, $(LISP)))
 LISP_FLAGS += --norc
 else
-LISP_FLAGS += --quiet --no-init --batch
+LISP_FLAGS += --quiet --batch
 endif
 endif
 
