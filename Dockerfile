@@ -1,4 +1,4 @@
-FROM python:3.8.5
+FROM python:3.10.12
 
 # Install required system packages
 RUN apt-get update && apt-get -y install sbcl
