@@ -266,7 +266,7 @@ class ReadmePlugin:
     def pytest_collect_file(self, parent, path):
         # we don't check the path because our pytest invocation
         # specifies only one file, and we assume user gave us Markdown
-        return ReadmeFile.from_parent(parent, fspath=path)
+        return ReadmeFile.from_parent(parent, path=pathlib.Path(path))
 
 
 if __name__ == '__main__':
