@@ -1,5 +1,5 @@
 ============================= test session starts ==============================
-platform linux -- Python 0.0.0, pytest-0.0.0, py-0.0.0, pluggy-0.0.0
+platform linux -- Python 0.0.0, pytest-0.0.0, pluggy-0.0.0
 rootdir: cl-make, configfile: pytest.ini
 collected 2 items
 

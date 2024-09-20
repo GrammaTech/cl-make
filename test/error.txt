@@ -1,5 +1,5 @@
 ============================= test session starts ==============================
-platform linux -- Python 0.0.0, pytest-0.0.0, py-0.0.0, pluggy-0.0.0
+platform linux -- Python 0.0.0, pytest-0.0.0, pluggy-0.0.0
 rootdir: cl-make, configfile: pytest.ini
 collected 1 item
 
@@ -7,7 +7,7 @@ error.md::1
 -------------------------------- live log call ---------------------------------
 * (format t (+ 1 2))
 
-debugger invoked on a SB-KERNEL:CASE-FAILURE in thread
+debugger invoked on a SB-KERNEL:CASE-FAILURE @52BC2370 in thread
 #<THREAD "main thread" RUNNING {1000000000}>:
   3 fell through ETYPECASE expression.
   Wanted one of (SIMPLE-STRING STRING SB-FORMAT::FMT-CONTROL).
